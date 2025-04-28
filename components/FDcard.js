@@ -39,7 +39,7 @@ export default function FDcard() {
               ))}
             </div>
             <button
-              className="bg-black text-white border-2 border-black rounded-lg px-4 py-2"
+              className="bg-black text-black border-2 border-black rounded-lg px-4 py-2"
               onClick={() => router.push('/TestConf')}
             >
               Apply Now

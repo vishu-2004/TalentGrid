@@ -3,12 +3,11 @@ import User from '@/models/User'
 import { NextRequest, NextResponse } from 'next/server'
 import bcryptjs from 'bcryptjs'
 
-
-
 export async function POST(request) {
     try {
       let conn = await connect();
       const { Name, email, password, roleName } = await request.json();
+      console.log(roleName);
       
       if (!Name || !email || !password || !roleName) {
         return NextResponse.json({ error: "All fields are required" }, { status: 400 });

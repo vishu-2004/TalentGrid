@@ -44,14 +44,14 @@ export const authOptions = {
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
-                token.role = user.role; // Ensure role is passed in token
+                token.role = user.role.toLowerCase(); // Ensure role is passed in token
             }
             return token;
         },
         async session({ session, token }) {
             if (token) {
                 session.user.id = token.id;
-                session.user.role = token.role; // Ensure role is included in session
+                session.user.role = token.role.toLowerCase(); // Ensure role is included in session
             }
             return session;
         }

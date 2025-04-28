@@ -36,7 +36,7 @@ const AccountTypeSelection = () => {
               checked={selectedAccount === 'client'}
               onChange={() => handleSelection('client')}
             />
-            <span className="text-xl text-center">Sign in as a Client</span>
+            <span className="text-xl text-center">Sign Up as a Recruiter</span>
           </div>
 
           <div
@@ -50,7 +50,7 @@ const AccountTypeSelection = () => {
               checked={selectedAccount === 'freelancer'}
               onChange={() => handleSelection('freelancer')}
             />
-            <span className="text-xl text-center">Sign in as a job seeker</span>
+            <span className="text-xl text-center">Sign Up as a job Seeker</span>
           </div>
         </div>
 

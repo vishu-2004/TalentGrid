@@ -125,7 +125,7 @@ export default function FrontendAssessmentPage() {
               </div>
             ))}
             <button
-              className="bg-black text-white border-2 border-black rounded-lg px-4 py-2 hover:bg-gray-800 transition-all"
+              className="bg-black text-black border-2 border-black rounded-lg px-4 py-2 hover:bg-gray-800 transition-all"
               onClick={() => setIsSubmitted(true)}
             >
               Submit Test
@@ -138,7 +138,7 @@ export default function FrontendAssessmentPage() {
               <div className="mt-4">
                 <p className="text-green-600 font-semibold">You are eligible for the position!</p>
                 <Link href="/join">
-                  <button className="mt-2 bg-green-600 text-white border-2 border-green-600 rounded-lg px-4 py-2 hover:bg-green-700 transition-all">
+                  <button className="mt-2 bg-green-600 text-black border-2 border-green-600 rounded-lg px-4 py-2 hover:bg-green-700 transition-all">
                     Join Now
                   </button>
                 </Link>
