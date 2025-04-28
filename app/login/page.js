@@ -17,9 +17,9 @@ const login = () => {
   
     if (session?.status === 'authenticated') {
       if (session.data?.user?.role === "client") {
-        router.replace('/Cdashboard'); // Redirect client
+        router.replace('/client/dashboard');
       } else {
-        router.replace('/dashboard'); // Redirect freelancer
+        router.replace('/seeker/dashboard');
       }
     }
   }, [session, router]);
@@ -67,9 +67,9 @@ const login = () => {
       console.log("Fetched Session:", session); // Debugging
   
       if (session?.user?.role === "client") {
-        router.replace('/Cdashboard'); // Redirect client
+        router.replace('/client/dashboard');
       } else {
-        router.replace('/dashboard'); // Redirect freelancer
+        router.replace('/jobs');
       }
     }, 1000); // Small delay to ensure session updates
   };
@@ -108,7 +108,7 @@ const login = () => {
           </div>
           <button
             type='submit'
-            className='w-full bg-[#6300B3] text-white p-3 rounded-lg font-semibold'
+            className='w-full bg-[#6300B3] text-black p-3 rounded-lg font-semibold'
           >
             Log In
           </button>
