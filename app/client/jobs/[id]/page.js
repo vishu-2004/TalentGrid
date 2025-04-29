@@ -136,9 +136,9 @@ export default function JobDetail() {
     try {
       const res = await fetch(`/api/client/jobs/${id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
         body: JSON.stringify(formData),
       });
       
@@ -535,9 +535,9 @@ export default function JobDetail() {
                 const newStatus = job.status === 'Open' ? 'Closed' : 'Open';
                 fetch(`/api/client/jobs/${id}/status`, {
                   method: 'PUT',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
+                  // headers: {
+                  //   'Content-Type': 'application/json',
+                  // },
                   body: JSON.stringify({ status: newStatus }),
                 })
                 .then(res => {

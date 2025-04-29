@@ -1,6 +1,7 @@
  "use client"
 import { useState, useEffect } from 'react';
 import { User, Building, Globe, MapPin, Mail, Save } from 'lucide-react';
+import Image from 'next/image';
 
 export default function ClientProfile() {
   const [profile, setProfile] = useState({
@@ -52,9 +53,9 @@ export default function ClientProfile() {
     try {
       const res = await fetch('/api/client/profile', {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
         body: JSON.stringify(profile),
       });
       
@@ -100,7 +101,7 @@ export default function ClientProfile() {
               <div className="md:w-1/3 flex flex-col items-center">
                 <div className="w-40 h-40 rounded-full overflow-hidden bg-gray-100 mb-4">
                   {profile.profilePicture ? (
-                    <img 
+                    <Image
                       src={profile.profilePicture} 
                       alt={profile.name} 
                       className="w-full h-full object-cover"

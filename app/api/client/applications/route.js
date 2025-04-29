@@ -3,7 +3,7 @@ import { connect } from '@/utils/db';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { getApplicationsForClient } from '@/utils/applicationUtils';
-
+export const dynamic = 'force-dynamic';
 export async function GET(request) {
   try {
     await connect();

@@ -42,7 +42,7 @@ const SignIn = () => {
     try {
       const res = await fetch('/api/signin', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        // headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ Name, email, password, roleName: selectedRole }),
       });
       if (res.status === 400) {

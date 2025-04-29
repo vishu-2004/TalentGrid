@@ -19,9 +19,9 @@ export default function JobDetailPage({ params }) {
     if (jobId) {
       fetchJobDetails();
     }
-  }, [jobId]);
+  }, [jobId, fetchJobDetails]);
 
-  const fetchJobDetails = async () => {
+  const fetchJobDetails =  useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch(`/api/jobs/${jobId}`);
@@ -38,7 +38,7 @@ export default function JobDetailPage({ params }) {
       setError(err.message);
       setLoading(false);
     }
-  };
+  },[jobId]);
 
   const handleApply = () => {
     if (!session) {
@@ -64,9 +64,9 @@ export default function JobDetailPage({ params }) {
     try {
       const response = await fetch('/api/user/saved-jobs', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
         body: JSON.stringify({ jobId }),
       });
       

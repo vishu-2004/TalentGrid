@@ -3,7 +3,7 @@ import { connect } from '@/utils/db';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { updateApplicationStatus, deleteApplicationById } from '@/utils/applicationUtils';
-
+export const dynamic = 'force-dynamic';
 export async function PUT(request, { params }) {
   try {
     await connect();
@@ -33,7 +33,7 @@ export async function DELETE(request, { params }) {
     const clientId = session.user.id;
     const { id } = params;
     // Delete if belongs to client's jobs
-    await deleteApplicationById(id, clientId);
+    // await deleteApplicationById(id, clientId);
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err) {
     console.error('Error deleting application:', err);

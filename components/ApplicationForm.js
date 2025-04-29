@@ -41,9 +41,9 @@ export default function ApplicationForm({ jobId, onSuccess }) {
       
       const response = await fetch('/api/applications', { 
         method: 'POST', 
-        headers: { 
-          'Content-Type': 'application/json', 
-        }, 
+        // headers: { 
+        //   'Content-Type': 'application/json', 
+        // }, 
         body: JSON.stringify({ 
           jobId, 
           coverLetter: formData.coverLetter, 

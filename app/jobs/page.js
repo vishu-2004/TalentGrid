@@ -17,9 +17,9 @@ export default function JobsPage() {
 
   useEffect(() => {
     fetchJobs();
-  }, [filters]);
+  }, [fetchJobs]);
 
-  const fetchJobs = async () => {
+  const fetchJobs =useCallback(async () => {
     try {
       setLoading(true);
       
@@ -45,7 +45,7 @@ export default function JobsPage() {
       setError(err.message);
       setLoading(false);
     }
-  };
+  },[filters]);
 
   const handleFilterChange = (newFilters) => {
     setFilters({ ...filters, ...newFilters });

@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const Navbar = () => {
   return (
@@ -7,7 +8,7 @@ const Navbar = () => {
     <nav className='bg-[#F5EDFA] text-black flex h-[70] py-4 px-10 justify-between '>
       
       <Link href='/' className='flex'>
-        <img className='h-8 w-8 mr-2' src='/logo.png'/>
+        <Image className='h-8 w-8 mr-2' src='/logo.png' alt="x"/>
         <h1 className='text-3xl text-[#6300B3] font-bold'>TalentGrid</h1>
         <h4 className='text-light_yellow pt-6 font-semibold'></h4>
       </Link>

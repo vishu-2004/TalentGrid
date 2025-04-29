@@ -50,7 +50,7 @@ export default function ClientManageApplications() {
     try {
       const res = await fetch(`/api/client/applications/${id}/status`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        // headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
       });
       if (res.ok) {

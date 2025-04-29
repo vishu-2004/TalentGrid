@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 export default function FImage() {
@@ -17,7 +18,7 @@ export default function FImage() {
     <div className="border-gray-200 border-2 h-[300px] rounded-xl flex flex-col items-center justify-center p-4">
       <input type="file" accept="image/*" onChange={handleImageChange} className="mb-4" />
       {image && (
-        <img
+        <Image
           src={image}
           alt="Uploaded"
           width={128}
