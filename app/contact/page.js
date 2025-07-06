@@ -81,7 +81,7 @@ const ContactPage = () => {
                 
                 <div className="pt-6 mt-6 border-t border-black border-opacity-20">
                   <p className="text-black text-opacity-80">
-                    We're here to help! Fill out the form and we'll get back to you as soon as possible.
+                    We are here to help! Fill out the form and we will get back to you as soon as possible.
                   </p>
                 </div>
               </div>

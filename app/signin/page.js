@@ -6,139 +6,140 @@ import Link from 'next/link';
 const SignIn = () => {
   const router = useRouter();
   const searchParams = useSearchParams()
-  const [roleName, setRoleName] = useState("");
+  const [selectedRole, setSelectedRole] = useState('');
   const [Name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, seterror] = useState("")
-
-  const role = searchParams.get('role')
-  console.log(role)
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (role === 'client') {
-      setRoleName('Client');
-    } else if (role === 'freelancer') {
-      setRoleName('Freelancer');
+    // If role passed in query, pre-select it
+    const roleFromQuery = searchParams.get('role');
+    if (roleFromQuery === 'client' || roleFromQuery === 'freelancer') {
+      setSelectedRole(roleFromQuery);
     }
-  }, []);
+  }, [searchParams]);
 
   const isValidEmail = (email) => {
-    const emailRegex = /[a-z0-9\._%+!$&*=^|~#%'`?{}/\-]+@([a-z0-9\-]+\.){1,}([a-z]{2,16})/
-    return emailRegex.test(email)
-  }
-
-
+    const emailRegex = /[a-z0-9._%+!$&*=^|~#%'`?{}/\\-]+@([a-z0-9-]+\\.){1,}([a-z]{2,16})/;
+    return emailRegex.test(email);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can add authentication logic here
-    console.log({ Name, email, password, roleName });
-
-    if (!email || !password || !Name || !roleName) {
-      seterror('Please fill in all fields');
+    if (!selectedRole || !Name || !email || !password) {
+      setError('Please fill in all fields');
       return;
     }
-
-    if (!isValidEmail(email)) {
-      seterror('This email is invalid')
-      return;
-    }
-
+    // if (!isValidEmail(email)) {
+    //   setError('This email is invalid');
+    //   return;
+    // }
     if (password.length < 8) {
-      seterror('The password must be greater than or equal to 8 characters')
+      setError('The password must be at least 8 characters long');
       return;
     }
-
     try {
       const res = await fetch('/api/signin', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          Name,
-          email,
-          password,
-          roleName,
-        }),
-      })
-
-      const data = await res.json();
-
+        method: 'POST',
+        // headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ Name, email, password, roleName: selectedRole }),
+      });
       if (res.status === 400) {
-        seterror('This email is already registeredd')
+        setError('This email is already registered');
+      } else if (res.status === 200) {
+        router.push('/login');
+      } else {
+        setError('An unexpected error occurred');
       }
-
-      else if (res.status === 200) {
-        seterror("")
-        router.push('/login')
-      }
-      else {
-        seterror('An unexpected error occurred');
-      }
-    } catch (error) {
-      console.error('Error occurred during sign-in:', error);
-      seterror('An unexpected error occurred. Please try again.');
-      return NextResponse.json({error: error.message, stack: error.stack}, {status: 500});
+    } catch (err) {
+      console.error(err);
+      setError('An unexpected error occurred. Please try again.');
     }
   };
+  const roles = [
+    { label: 'Recruiter', value: 'client' },
+    { label: 'Job Seeker', value: 'freelancer' }
+  ];
 
   return (
-    <div className='flex justify-center items-center h-screen bg-gray-100'>
-      <div className='bg-white p-8 rounded-lg shadow-lg max-w-md w-full'>
-        <h2 className='text-3xl font-bold mb-8 text-center'>Sign in as a {roleName || '...'}</h2>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <h2 className="text-3xl font-bold mb-4 text-center">Sign in</h2>
         <form onSubmit={handleSubmit}>
-          <div className='mb-6'>
-            <label htmlFor='name' className='block text-sm font-semibold mb-2'>
+          <div className="mb-4">
+            <p className="font-semibold mb-2">Select Role:</p>
+            <ul className="list-disc list-inside flex space-x-4">
+            {roles.map((role) => (
+              <li key={role.value} className="flex items-center">
+                <input
+                  type="radio"
+                  id={role.value}
+                  name="role"
+                  value={role.value} // ✅ backend value
+                  checked={selectedRole === role.value}
+                  onChange={() => setSelectedRole(role.value)} // ✅ store value
+                  className="mr-2"
+                />
+                <label htmlFor={role.value} className="capitalize">
+                  {role.label} {/* ✅ what user sees */}
+                </label>
+              </li>
+            ))}
+            </ul>
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="name" className="block text-sm font-semibold mb-2">
               Name
             </label>
             <input
-              type='name'
-              id='name'
-              className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 '
+              type="text"
+              id="name"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2"
               value={Name}
               onChange={(e) => setName(e.target.value)}
-              required
             />
           </div>
-          <div className='mb-6'>
-            <label htmlFor='email' className='block text-sm font-semibold mb-2'>
+
+          <div className="mb-6">
+            <label htmlFor="email" className="block text-sm font-semibold mb-2">
               Email Address
             </label>
             <input
-              type='email'
-              id='email'
-              className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 '
+              type="email"
+              id="email"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
             />
           </div>
-          <div className='mb-6'>
-            <label htmlFor='password' className='block text-sm font-semibold mb-2'>
+
+          <div className="mb-6">
+            <label htmlFor="password" className="block text-sm font-semibold mb-2">
               Password
             </label>
             <input
-              type='password'
-              id='password'
-              className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 '
+              type="password"
+              id="password"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
             />
           </div>
+
           <button
-            type='submit'
-            className='w-full bg-[#6300B3] text-white p-3 rounded-lg font-semibold'
+            type="submit"
+            className="w-full bg-[#6300B3] text-black p-3 rounded-lg font-semibold"
           >
             Sign In
           </button>
-          <p className='text-red-500'>{error && error}</p>
+          {error && <p className="text-red-500 mt-2">{error}</p>}
         </form>
-        <p className='text-center mt-6'>
+
+        <p className="text-center mt-6">
           Already have an account?{' '}
-          <Link href='/login' className='text-[#6300B3] font-thin hover:underline'>
+          <Link href="/login" className="text-[#6300B3] font-thin hover:underline">
             Log In
           </Link>
         </p>
